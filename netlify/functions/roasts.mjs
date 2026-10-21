@@ -17,4 +17,4 @@ export default async(request)=>{
     return out(201,{comment});
   }catch(e){if(["Invalid request","Spam rejected","Invalid week"].includes(e.message)||e.message.includes("须为")||e.message.includes("不支持字符"))return out(400,{error:e.message});console.error("Roasts failure",e);return out(503,{error:"留言服务暂不可用"})}
 };
-export const config={path:"/api/roasts"};
+export const config={path:"/api/roasts",rateLimit:{windowSize:60,windowLimit:15,aggregateBy:["ip","domain"]}};
