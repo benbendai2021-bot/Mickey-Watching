@@ -1,0 +1,36 @@
+name: Open weekly Mickey Watching thread
+on:
+  schedule:
+    - cron: '5 16 * * 1'
+  workflow_dispatch:
+permissions:
+  issues: write
+  contents: read
+jobs:
+  weekly-thread:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure this week's roast thread exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import os,datetime,urllib.request,json
+          repo=os.environ["GH_REPO"]; token=os.environ["GH_TOKEN"]
+          today=datetime.datetime.now(datetime.timezone.utc).date()
+          monday=today-datetime.timedelta(days=today.weekday())
+          sunday=monday+datetime.timedelta(days=6)
+          prefix=f"🐭 Mickey Watching · {monday.isoformat()}"
+          api=f"https://api.github.com/repos/{repo}/issues"
+          def call(url,body=None):
+              headers={"Authorization":f"Bearer {token}","Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}
+              req=urllib.request.Request(url,data=json.dumps(body).encode() if body is not None else None,headers=headers)
+              with urllib.request.urlopen(req,timeout=25) as r:return json.load(r)
+          existing=call(api+"?state=all&per_page=100")
+          if any(x.get("title","").startswith(prefix) for x in existing):
+              print("This week's issue already exists")
+          else:
+              call(api,{"title":prefix+" 这周米奇刷题了吗？","body":f"## 🐭 每周观察站（{monday.isoformat()} — {sunday.isoformat()}）\n\n朋友们请在评论区监督米奇：这周刷题了吗？\n\n🟢 刷了：夸夸米奇！\n🟡 没刷：友善催更！\n\n目标：2026 年 12 月 20 日前完成 NeetCode 150；不设每周题数 KPI，但每周至少刷一次。\n\n所有评论会公开展示在项目主页，请勿发布隐私信息。"})
+              print("Created weekly issue",prefix)
+          PY
