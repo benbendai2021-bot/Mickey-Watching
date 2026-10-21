@@ -1,0 +1,12 @@
+{
+  "name": "mickey-watching",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^9.1.2"
+  }
+}
