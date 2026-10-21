@@ -5,7 +5,7 @@ const out=(status,obj)=>new Response(JSON.stringify(obj),{status,headers});
 export default async(request)=>{
   if(!["GET","POST"].includes(request.method))return out(405,{error:"Method not allowed"});
   try{
-    const store=getStore({name:"mickey-roasts",consistency:"strong"});
+    const store=getStore("mickey-roasts", {consistency:"strong"});
     if(request.method==="GET"){const week=new URL(request.url).searchParams.get("week")||weekKey();return out(200,{week,comments:await listComments(store,week)})}
     const origin=request.headers.get("origin");
     if(origin&&origin!=="https://is-mickey-leetcoding.netlify.app")return out(403,{error:"Invalid origin"});
