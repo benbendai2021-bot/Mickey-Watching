@@ -23,11 +23,11 @@
 ## 📣 怎么吐槽米奇？
 
 1. 在网页找到 **「🐭 本周米奇观察站 · 吐槽区」**。
-2. 点击 **「我要吐槽 / 催更」**，前往对应的 GitHub Issue。
-3. 用 GitHub 账号评论即可；留言会显示在公开网页上。
+2. 在吐槽区填写昵称和留言，无需跳转 GitHub。
+3. 输入昵称和吐槽内容直接发送，不需要登录；留言公开显示。
 4. 每周一自动建立新的观察帖，旧帖会保留供后人考古。
 
-**吐槽守则：** 可以催更、发梗、夸夸，但请别辱骂、曝光隐私或者贴敏感内容。GitHub 评论是公开的，发布即表示愿意公开展示。
+**吐槽守则：** 可以催更、发梗、夸夸，但请别辱骂、曝光隐私或者贴敏感内容。所有留言公开，匿名昵称不代表经过身份验证。
 
 ## 🧠 数据怎么计算？
 
@@ -47,7 +47,7 @@
 - `scripts/sync.py`：抓取公开统计、核对 NeetCode 150 并保存历史。
 - `data/*.json`：配置、题单、快照与人工校准数据。
 - `.github/workflows/pages.yml`：每天同步数据，更新 GitHub 仓库。
-- `.github/workflows/weekly-roast.yml`：每周一开启新的吐槽 Issue。
+- `netlify/functions/roasts.mjs`：匿名留言 API、输入校验、基础限流。\n- `netlify/functions/_roast-core.mjs`：每周归档与数据逻辑。\n- `tests/roasts.test.mjs`：本地自动测试。
 - `netlify.toml`：Netlify 发布静态站点的配置。
 
 ### 免费发布到 Netlify
@@ -63,3 +63,10 @@
 ---
 
 **鼠鼠可以休息，但不能偷偷消失。** 🐭
+
+### 🐭 匿名留言技术说明
+
+- Netlify Functions 提供公开 GET/POST 接口 `/api/roasts`；Netlify Blobs 存储每条留言，不需要第三方登录。
+- 分周归档，按太平洋时间周一切换；输入有长度验证和蜜罐字段，Netlify 对接口设置 IP 限流。
+- 匿名留言仍可能遇到恶意内容或刷屏；如需长期对外开放，建议未来追加人工审核/举报与删除机制。
+- 本功能先在 `feature/anonymous-weekly-roasts` 分支测试，通过后再合并生产。
