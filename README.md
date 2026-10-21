@@ -46,7 +46,7 @@
 - `index.html`：静态 Dashboard，部署时无需构建。
 - `scripts/sync.py`：抓取公开统计、核对 NeetCode 150 并保存历史。
 - `data/*.json`：配置、题单、快照与人工校准数据。
-- `.github/workflows/pages.yml`：每天同步及 GitHub Pages 发布。
+- `.github/workflows/pages.yml`：每天同步数据，更新 GitHub 仓库。
 - `.github/workflows/weekly-roast.yml`：每周一开启新的吐槽 Issue。
 - `netlify.toml`：Netlify 发布静态站点的配置。
 
@@ -58,7 +58,7 @@
 4. 到 **Site configuration → Domain management** 设置站点名为 `is-mickey-leetcoding`（**需看实际是否可用**）。
 5. GitHub Actions 的定时同步会提交更新后的 JSON，Netlify 连接仓库后会重新部署。
 
-如果使用 GitHub Pages，则前往仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**，之后可以运行 [Sync and publish LeetCode Camp](../../actions/workflows/pages.yml)。
+数据同步独立运行，不依赖网站托管平台；Netlify 连接仓库之后会自动部署最新内容。
 
 ---
 
