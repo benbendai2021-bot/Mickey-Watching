@@ -1,8 +1,20 @@
 {
-  "source": "initial",
-  "submissionCalendar": {},
-  "acceptedSlugs": [],
+  "acceptedSlugs": [
+    "contains-duplicate",
+    "two-sum"
+  ],
+  "allTimeSolved": {
+    "All": 2,
+    "Easy": 2,
+    "Hard": 0,
+    "Medium": 0
+  },
+  "source": "leetcode-public-graphql",
+  "submissionCalendar": {
+    "1792540800": 3
+  },
+  "syncedAt": "2026-10-21T07:08:14.568404+00:00",
   "warnings": [
-    "Awaiting first sync"
+    "Public API only returns recent AC submissions. Older solved problems can be added to data/manual.json."
   ]
 }

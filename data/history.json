@@ -1,4 +1,12 @@
 {
-  "seenAcceptedSlugs": [],
-  "snapshots": []
+  "seenAcceptedSlugs": [
+    "contains-duplicate",
+    "two-sum"
+  ],
+  "snapshots": [
+    {
+      "completed": 2,
+      "date": "2026-10-21"
+    }
+  ]
 }
