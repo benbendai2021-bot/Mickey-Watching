@@ -13,7 +13,7 @@
   "submissionCalendar": {
     "1792540800": 3
   },
-  "syncedAt": "2026-10-21T07:13:58.588723+00:00",
+  "syncedAt": "2026-10-21T07:14:21.107814+00:00",
   "warnings": [
     "Public API only returns recent AC submissions. Older solved problems can be added to data/manual.json."
   ]
