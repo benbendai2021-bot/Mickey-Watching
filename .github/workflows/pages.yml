@@ -1,23 +1,23 @@
-name: Sync and publish LeetCode Camp
+name: Sync LeetCode Camp data
 on:
   push:
     branches: [main]
+    paths:
+      - 'scripts/sync.py'
+      - 'data/config.json'
+      - 'data/manual.json'
+      - '.github/workflows/pages.yml'
   schedule:
     - cron: '19 15 * * *'
   workflow_dispatch:
 permissions:
   contents: write
-  pages: write
-  id-token: write
 concurrency:
-  group: leetcode-camp-pages
+  group: leetcode-camp-sync
   cancel-in-progress: false
 jobs:
-  publish:
+  sync:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - name: Collect public data
@@ -31,10 +31,3 @@ jobs:
             git commit -m "chore: sync public LeetCode data [skip ci]"
             git push
           fi
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: .
-      - name: Publish site
-        id: deployment
-        uses: actions/deploy-pages@v4
