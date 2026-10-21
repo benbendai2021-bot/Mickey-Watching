@@ -1,0 +1,6 @@
+import test from "node:test";import assert from "node:assert/strict";
+import {weekKey,validate,postComment,listComments} from "../netlify/functions/_roast-core.mjs";
+const store=()=>{const m=new Map();return {setJSON:async(k,v)=>{if(m.has(k))throw Error("Duplicate");m.set(k,v)},get:async k=>m.get(k),list:async({prefix})=>({blobs:[...m.keys()].filter(x=>x.startsWith(prefix)).map(key=>({key}))})}};
+test("LA Monday boundaries",()=>{assert.equal(weekKey(new Date("2026-10-19T06:59:00Z")),"2026-10-12");assert.equal(weekKey(new Date("2026-10-19T07:01:00Z")),"2026-10-19")});
+test("validation rejects spam and unsafe names",()=>{assert.throws(()=>validate({nickname:"<>",message:"hello"}));assert.throws(()=>validate({nickname:"Mouse",message:"hi",website:"spam"}));assert.throws(()=>validate({nickname:"M",message:"x".repeat(501)}))});
+test("posts are separate entries and archived by week",async()=>{const s=store();await postComment(s,{nickname:"A",message:"开刷呀"}, {now:new Date("2026-10-19T20:00:00Z"),id:"one"});await postComment(s,{nickname:"B",message:"不能摸鱼"},{now:new Date("2026-10-20T20:00:00Z"),id:"two"});await postComment(s,{nickname:"C",message:"下周了"},{now:new Date("2026-10-26T20:00:00Z"),id:"three"});assert.equal((await listComments(s,"2026-10-19")).length,2);assert.equal((await listComments(s,"2026-10-26")).length,1)});
