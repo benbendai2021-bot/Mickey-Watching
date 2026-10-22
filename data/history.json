@@ -1,12 +1,18 @@
 {
   "seenAcceptedSlugs": [
     "contains-duplicate",
-    "two-sum"
+    "group-anagrams",
+    "two-sum",
+    "valid-anagram"
   ],
   "snapshots": [
     {
       "completed": 2,
       "date": "2026-10-21"
+    },
+    {
+      "completed": 4,
+      "date": "2026-10-22"
     }
   ]
 }
