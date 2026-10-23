@@ -16,7 +16,7 @@
     "1792540800": 3,
     "1792627200": 7
   },
-  "syncedAt": "2026-10-22T15:52:51.985076+00:00",
+  "syncedAt": "2026-10-23T15:56:20.977821+00:00",
   "warnings": [
     "Public API only returns recent AC submissions. Older solved problems can be added to data/manual.json."
   ]
