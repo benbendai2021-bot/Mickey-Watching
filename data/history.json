@@ -2,6 +2,7 @@
   "seenAcceptedSlugs": [
     "contains-duplicate",
     "group-anagrams",
+    "product-of-array-except-self",
     "two-sum",
     "valid-anagram"
   ],
@@ -33,6 +34,10 @@
     {
       "completed": 4,
       "date": "2026-10-27"
+    },
+    {
+      "completed": 5,
+      "date": "2026-10-28"
     }
   ]
 }
