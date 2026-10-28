@@ -8,7 +8,8 @@ on:
       - 'data/manual.json'
       - '.github/workflows/pages.yml'
   schedule:
-    - cron: '19 15 * * *'
+    # Run hourly (UTC). GitHub scheduled jobs may start a little late.
+    - cron: '7 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
