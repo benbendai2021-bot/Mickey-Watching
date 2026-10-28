@@ -20,7 +20,9 @@ try:
    problems.append({'title':title,'slug':slug,'difficulty':item.get('difficulty','Unknown'),'url':url or 'https://leetcode.com/problems/'+slug+'/'})
   topics.append({'name':name,'problems':problems})
  if len(topics)!=18 or sum(len(t['problems']) for t in topics)!=150:raise ValueError('Unexpected topic/problem count')
- put('problems.json',{'topics':topics,'fetchedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()})
+ old_road=get('problems.json')
+ if old_road.get('topics')!=topics:
+  put('problems.json',{'topics':topics,'fetchedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()})
 except Exception as ex:warnings.append('Roadmap: '+str(ex)[:160])
 try:
  query='query progress($username:String!){ matchedUser(username:$username){username submitStatsGlobal {acSubmissionNum{difficulty count}} submissionCalendar} recentAcSubmissionList(username:$username,limit:20){titleSlug timestamp}}'
@@ -33,7 +35,10 @@ try:
  for x in d.get('recentAcSubmissionList') or []:
   if x.get('titleSlug'):seen.add(x['titleSlug'])
  history['seenAcceptedSlugs']=sorted(seen)
- status.update({'syncedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source':'leetcode-public-graphql','submissionCalendar':json.loads(user.get('submissionCalendar') or '{}'),'acceptedSlugs':sorted(seen),'allTimeSolved':{s['difficulty']:s['count'] for s in user['submitStatsGlobal']['acSubmissionNum']}})
+ new_status={'source':'leetcode-public-graphql','submissionCalendar':json.loads(user.get('submissionCalendar') or '{}'),'acceptedSlugs':sorted(seen),'allTimeSolved':{s['difficulty']:s['count'] for s in user['submitStatsGlobal']['acSubmissionNum']}}
+ if any(status.get(k)!=v for k,v in new_status.items()):
+  status.update(new_status)
+  status['syncedAt']=datetime.datetime.now(datetime.timezone.utc).isoformat()
 except Exception as ex:warnings.append('LeetCode: '+str(ex)[:180])
 road=get('problems.json');manual=get('manual.json')
 valid={p['slug'] for t in road.get('topics',[]) for p in t['problems']}
