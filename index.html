@@ -19,7 +19,7 @@ const dateReadable=s=>new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month
 const makeDate=s=>new Date(s+'T12:00:00Z');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function monday(d){let x=new Date(d);x.setUTCHours(12,0,0,0);x.setUTCDate(x.getUTCDate()-((x.getUTCDay()+6)%7));return x}
-async function json(path){const r=await fetch('./data/'+path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' HTTP '+r.status);return r.json()}
+async function json(path){const base='https://raw.githubusercontent.com/benbendai2021-bot/Mickey-Watching/main/data/';const url=base+encodeURIComponent(path)+'?v='+Date.now();let r;try{r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('GitHub '+r.status)}catch(e){r=await fetch('./data/'+path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path+' HTTP '+r.status)}return r.json()}
 async function run(){
 const [road,status,history,manual]=await Promise.all([json('problems.json'),json('status.json'),json('history.json'),json('manual.json')]);
 const topics=road.topics||[],slugs=new Set([...(status.acceptedSlugs||[]),...(history.seenAcceptedSlugs||[]),...(manual.completedSlugs||[])]);
