@@ -1,9 +1,11 @@
 {
   "seenAcceptedSlugs": [
+    "container-with-most-water",
     "contains-duplicate",
     "group-anagrams",
     "product-of-array-except-self",
     "two-sum",
+    "two-sum-ii-input-array-is-sorted",
     "valid-anagram"
   ],
   "snapshots": [
@@ -72,7 +74,7 @@
       "date": "2026-11-05"
     },
     {
-      "completed": 5,
+      "completed": 7,
       "date": "2026-11-06"
     }
   ]
