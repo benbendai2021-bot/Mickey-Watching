@@ -1,5 +1,6 @@
 {
   "seenAcceptedSlugs": [
+    "3sum",
     "container-with-most-water",
     "contains-duplicate",
     "group-anagrams",
@@ -86,7 +87,7 @@
       "date": "2026-11-08"
     },
     {
-      "completed": 7,
+      "completed": 8,
       "date": "2026-11-09"
     }
   ]

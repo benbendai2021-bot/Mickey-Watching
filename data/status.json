@@ -1,5 +1,6 @@
 {
   "acceptedSlugs": [
+    "3sum",
     "container-with-most-water",
     "contains-duplicate",
     "group-anagrams",
@@ -9,10 +10,10 @@
     "valid-anagram"
   ],
   "allTimeSolved": {
-    "All": 7,
+    "All": 8,
     "Easy": 3,
     "Hard": 0,
-    "Medium": 4
+    "Medium": 5
   },
   "source": "leetcode-public-graphql",
   "submissionCalendar": {
@@ -20,9 +21,9 @@
     "1792627200": 7,
     "1793145600": 3,
     "1793923200": 2,
-    "1794182400": 2
+    "1794182400": 12
   },
-  "syncedAt": "2026-11-09T06:11:10.234766+00:00",
+  "syncedAt": "2026-11-09T08:29:45.806791+00:00",
   "warnings": [
     "Public API only returns recent AC submissions. Older solved problems can be added to data/manual.json."
   ]
